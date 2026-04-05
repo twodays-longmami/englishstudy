@@ -1,413 +1,305 @@
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.5">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 20.0px 'Helvetica Neue'; min-height: 25.0px}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'; min-height: 15.0px}
-    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>English Study Game</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F7F5F0;min-height:100vh;color:#1A1A2E}
+.screen{display:none;padding:20px;max-width:480px;margin:0 auto;min-height:100vh}
+.screen.active{display:block}
+.progress-bar{height:5px;background:#E0DDD6;border-radius:3px;overflow:hidden;margin-bottom:16px}
+.progress-fill{height:100%;background:#1A1A2E;transition:width .3s ease;border-radius:3px}
+.flip-wrap{perspective:900px;width:100%;height:190px;margin:0 auto 20px;cursor:pointer}
+.flip-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.flip-inner.flipped{transform:rotateY(180deg)}
+.flip-face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;background:#fff;border-radius:18px;backface-visibility:hidden;-webkit-backface-visibility:hidden;text-align:center;gap:10px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.flip-face.back{transform:rotateY(180deg);background:#F0EDE6}
+.btn{padding:11px 20px;border:1.5px solid #C8C5BE;border-radius:12px;background:#fff;color:#1A1A2E;font-size:14px;cursor:pointer;font-family:inherit;transition:all .12s;font-weight:500}
+.btn:active{transform:scale(.96);opacity:.85}
+.btn-primary{background:#1A1A2E;color:#fff;border-color:transparent}
+.btn-ok{background:#E8F6EF;color:#1B7A4A;border-color:#B6E2CB;font-size:15px}
+.btn-no{background:#FEF0EE;color:#C0392B;border-color:#F5BDB5;font-size:15px}
+.quiz-option{width:100%;padding:13px 16px;margin-bottom:10px;text-align:left;border:1.5px solid #E0DDD6;border-radius:12px;background:#fff;color:#1A1A2E;font-size:14px;cursor:pointer;font-family:inherit;transition:all .12s;line-height:1.5;font-weight:400}
+.quiz-option:active:not(:disabled){background:#F0EDE6}
+.quiz-option.correct{background:#E8F6EF;color:#1B7A4A;border-color:#B6E2CB;font-weight:500}
+.quiz-option.wrong{background:#FEF0EE;color:#C0392B;border-color:#F5BDB5}
+.mode-card{display:flex;align-items:center;gap:14px;padding:16px;border:1.5px solid #E0DDD6;border-radius:16px;background:#fff;color:#1A1A2E;cursor:pointer;width:100%;text-align:left;font-family:inherit;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.mode-card:active{background:#F0EDE6;transform:scale(.98)}
+.mode-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.ch-pill{padding:5px 13px;border-radius:99px;border:1.5px solid #E0DDD6;background:#fff;color:#6B6860;font-size:13px;cursor:pointer;font-family:inherit;transition:all .12s;font-weight:500}
+.ch-pill.active{background:#1A1A2E;color:#fff;border-color:transparent}
+.ch-pill:active{opacity:.75}
+.label{font-size:11px;color:#8A877E;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.word-big{font-size:28px;font-weight:600;color:#1A1A2E;line-height:1.2}
+.word-kr{font-size:22px;font-weight:600;color:#1A1A2E;line-height:1.35}
+.ch-badge{font-size:11px;padding:3px 10px;background:#F0EDE6;color:#8A877E;border-radius:99px;font-weight:500}
+.row-between{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.feedback{font-size:14px;font-weight:600;text-align:center;min-height:22px;margin:6px 0}
+.score-big{font-size:52px;font-weight:700;color:#1A1A2E;line-height:1}
+.stars{font-size:32px;letter-spacing:6px;margin-bottom:8px}
+</style>
 </head>
 <body>
-<p class="p1"><b></b><br></p>
-<p class="p2"><br></p>
-<p class="p2"><br></p>
-<p class="p3">&lt;!DOCTYPE html&gt;</p>
-<p class="p2"><br></p>
-<p class="p3">&lt;html lang="ko"&gt;</p>
-<p class="p3">&lt;head&gt;</p>
-<p class="p3">&lt;meta charset="UTF-8"&gt;</p>
-<p class="p3">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"&gt;</p>
-<p class="p3">&lt;title&gt;English Study Game&lt;/title&gt;</p>
-<p class="p3">&lt;style&gt;</p>
-<p class="p3">*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}</p>
-<p class="p3">body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F7F5F0;min-height:100vh;color:#1A1A2E}</p>
-<p class="p3">.screen{display:none;padding:20px;max-width:480px;margin:0 auto;min-height:100vh}</p>
-<p class="p3">.screen.active{display:block}</p>
-<p class="p2"><br></p>
-<p class="p3">/* Progress */</p>
-<p class="p3">.progress-bar{height:5px;background:#E0DDD6;border-radius:3px;overflow:hidden;margin-bottom:16px}</p>
-<p class="p3">.progress-fill{height:100%;background:#1A1A2E;transition:width .3s ease;border-radius:3px}</p>
-<p class="p2"><br></p>
-<p class="p3">/* Card flip */</p>
-<p class="p3">.flip-wrap{perspective:900px;width:100%;height:190px;margin:0 auto 20px;cursor:pointer}</p>
-<p class="p3">.flip-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.4,0,.2,1)}</p>
-<p class="p3">.flip-inner.flipped{transform:rotateY(180deg)}</p>
-<p class="p3">.flip-face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;background:#fff;border-radius:18px;backface-visibility:hidden;-webkit-backface-visibility:hidden;text-align:center;gap:10px;box-shadow:0 2px 12px rgba(0,0,0,.06)}</p>
-<p class="p3">.flip-face.back{transform:rotateY(180deg);background:#F0EDE6}</p>
-<p class="p2"><br></p>
-<p class="p3">/* Buttons */</p>
-<p class="p3">.btn{padding:11px 20px;border:1.5px solid #C8C5BE;border-radius:12px;background:#fff;color:#1A1A2E;font-size:14px;cursor:pointer;font-family:inherit;transition:all .12s;font-weight:500}</p>
-<p class="p3">.btn:active{transform:scale(.96);opacity:.85}</p>
-<p class="p3">.btn-primary{background:#1A1A2E;color:#fff;border-color:transparent}</p>
-<p class="p3">.btn-ok{background:#E8F6EF;color:#1B7A4A;border-color:#B6E2CB;font-size:15px}</p>
-<p class="p3">.btn-no{background:#FEF0EE;color:#C0392B;border-color:#F5BDB5;font-size:15px}</p>
-<p class="p2"><br></p>
-<p class="p3">/* Quiz options */</p>
-<p class="p3">.quiz-option{width:100%;padding:13px 16px;margin-bottom:10px;text-align:left;border:1.5px solid #E0DDD6;border-radius:12px;background:#fff;color:#1A1A2E;font-size:14px;cursor:pointer;font-family:inherit;transition:all .12s;line-height:1.5;font-weight:400}</p>
-<p class="p3">.quiz-option:active:not(:disabled){background:#F0EDE6}</p>
-<p class="p3">.quiz-option.correct{background:#E8F6EF;color:#1B7A4A;border-color:#B6E2CB;font-weight:500}</p>
-<p class="p3">.quiz-option.wrong{background:#FEF0EE;color:#C0392B;border-color:#F5BDB5}</p>
-<p class="p2"><br></p>
-<p class="p3">/* Mode cards */</p>
-<p class="p3">.mode-card{display:flex;align-items:center;gap:14px;padding:16px;border:1.5px solid #E0DDD6;border-radius:16px;background:#fff;color:#1A1A2E;cursor:pointer;width:100%;text-align:left;font-family:inherit;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.04)}</p>
-<p class="p3">.mode-card:active{background:#F0EDE6;transform:scale(.98)}</p>
-<p class="p3">.mode-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}</p>
-<p class="p2"><br></p>
-<p class="p3">/* Chapter pills */</p>
-<p class="p3">.ch-pill{padding:5px 13px;border-radius:99px;border:1.5px solid #E0DDD6;background:#fff;color:#6B6860;font-size:13px;cursor:pointer;font-family:inherit;transition:all .12s;font-weight:500}</p>
-<p class="p3">.ch-pill.active{background:#1A1A2E;color:#fff;border-color:transparent}</p>
-<p class="p3">.ch-pill:active{opacity:.75}</p>
-<p class="p2"><br></p>
-<p class="p3">/* Labels */</p>
-<p class="p3">.label{font-size:11px;color:#8A877E;font-weight:600;text-transform:uppercase;letter-spacing:.06em}</p>
-<p class="p3">.word-big{font-size:28px;font-weight:600;color:#1A1A2E;line-height:1.2}</p>
-<p class="p3">.word-kr{font-size:22px;font-weight:600;color:#1A1A2E;line-height:1.35}</p>
-<p class="p3">.ch-badge{font-size:11px;padding:3px 10px;background:#F0EDE6;color:#8A877E;border-radius:99px;font-weight:500}</p>
-<p class="p3">.row-between{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}</p>
-<p class="p3">.feedback{font-size:14px;font-weight:600;text-align:center;min-height:22px;margin:6px 0}</p>
-<p class="p3">.score-big{font-size:52px;font-weight:700;color:#1A1A2E;line-height:1}</p>
-<p class="p3">.stars{font-size:32px;letter-spacing:6px;margin-bottom:8px}</p>
-<p class="p3">&lt;/style&gt;</p>
-<p class="p2"><br></p>
-<p class="p3">&lt;/head&gt;</p>
-<p class="p3">&lt;body&gt;</p>
-<p class="p2"><br></p>
-<p class="p3">&lt;!-- HOME --&gt;</p>
-<p class="p2"><br></p>
-<p class="p3">&lt;div id="home-screen" class="screen active"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;div style="margin-bottom:24px;padding-top:8px"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;div style="font-size:22px;font-weight:700;margin-bottom:4px"&gt;📖 English Study&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;div style="font-size:13px;color:#8A877E" id="vocab-count"&gt;단어 87개 · 문장 10개&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;div style="margin-bottom:20px"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;div class="label" style="margin-bottom:10px"&gt;챕터 선택&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;div style="display:flex;flex-wrap:wrap;gap:7px" id="ch-pills"&gt;&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;button class="mode-card" onclick="startFlashcard()"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;div class="mode-icon" style="background:#EEF4FF"&gt;🃏&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">      </span>&lt;div style="font-size:15px;font-weight:600"&gt;플래시카드&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">      </span>&lt;div style="font-size:12px;color:#8A877E;margin-top:2px"&gt;카드를 뒤집어 뜻 확인&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;button class="mode-card" onclick="startQuiz()"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;div class="mode-icon" style="background:#EEFAF4"&gt;🧠&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">      </span>&lt;div style="font-size:15px;font-weight:600"&gt;단어 퀴즈&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">      </span>&lt;div style="font-size:12px;color:#8A877E;margin-top:2px"&gt;영어 단어 → 한국어 뜻 고르기&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;button class="mode-card" onclick="startSentence()"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;div class="mode-icon" style="background:#FFF8EE"&gt;✍️&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">      </span>&lt;div style="font-size:15px;font-weight:600"&gt;문장 도전&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">      </span>&lt;div style="font-size:12px;color:#8A877E;margin-top:2px"&gt;한국어 → 영어 표현 고르기&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;/button&gt;</p>
-<p class="p3">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p3">&lt;!-- FLASHCARD --&gt;</p>
-<p class="p2"><br></p>
-<p class="p3">&lt;div id="flashcard-screen" class="screen"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;div class="row-between"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;button class="btn" onclick="goHome()" style="padding:7px 14px;font-size:13px"&gt;← 홈&lt;/button&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;span style="font-size:13px;color:#8A877E" id="fc-counter"&gt;1 / 87&lt;/span&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;div class="progress-bar"&gt;&lt;div class="progress-fill" id="fc-pf" style="width:0%"&gt;&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;div class="flip-wrap" onclick="flipCard()"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;div class="flip-inner" id="fc-inner"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">      </span>&lt;div class="flip-face"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">        </span>&lt;span class="ch-badge" id="fc-fch"&gt;Ch.1&lt;/span&gt;</p>
-<p class="p3"><span class="Apple-converted-space">        </span>&lt;div class="word-big" id="fc-fen"&gt;word&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">        </span>&lt;span style="font-size:12px;color:#B0ADA6"&gt;탭하여 뒤집기&lt;/span&gt;</p>
-<p class="p3"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">      </span>&lt;div class="flip-face back"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">        </span>&lt;span class="label"&gt;한국어&lt;/span&gt;</p>
-<p class="p3"><span class="Apple-converted-space">        </span>&lt;div class="word-kr" id="fc-bkr"&gt;뜻&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">        </span>&lt;span style="font-size:13px;color:#8A877E" id="fc-ben"&gt;word&lt;/span&gt;</p>
-<p class="p3"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;div id="fc-actions" style="visibility:hidden;display:flex;gap:10px"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;button class="btn btn-no" style="flex:1" onclick="fcAnswer(false)"&gt;😅 모르겠어요&lt;/button&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;button class="btn btn-ok" style="flex:1" onclick="fcAnswer(true)"&gt;✅ 알아요!&lt;/button&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p3">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p3">&lt;!-- QUIZ --&gt;</p>
-<p class="p2"><br></p>
-<p class="p3">&lt;div id="quiz-screen" class="screen"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;div class="row-between"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;button class="btn" onclick="goHome()" style="padding:7px 14px;font-size:13px"&gt;← 홈&lt;/button&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;div style="display:flex;gap:12px;align-items:center"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">      </span>&lt;span style="font-size:13px;color:#8A877E" id="q-ctr"&gt;1 / 15&lt;/span&gt;</p>
-<p class="p3"><span class="Apple-converted-space">      </span>&lt;span style="font-size:14px;font-weight:700" id="q-score"&gt;0점&lt;/span&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;div class="progress-bar"&gt;&lt;div class="progress-fill" id="q-pf" style="width:0%"&gt;&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;div style="text-align:center;padding:20px 0 16px"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;span class="ch-badge" id="q-ch"&gt;Ch.1&lt;/span&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;div class="word-big" style="margin-top:10px" id="q-word"&gt;word&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;p style="font-size:12px;color:#8A877E;margin-top:8px"&gt;한국어 뜻을 고르세요&lt;/p&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;div id="q-opts"&gt;&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;div class="feedback" id="q-fb"&gt;&lt;/div&gt;</p>
-<p class="p3">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p3">&lt;!-- SENTENCE --&gt;</p>
-<p class="p2"><br></p>
-<p class="p3">&lt;div id="sentence-screen" class="screen"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;div class="row-between"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;button class="btn" onclick="goHome()" style="padding:7px 14px;font-size:13px"&gt;← 홈&lt;/button&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;div style="display:flex;gap:12px;align-items:center"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">      </span>&lt;span style="font-size:13px;color:#8A877E" id="s-ctr"&gt;1 / 10&lt;/span&gt;</p>
-<p class="p3"><span class="Apple-converted-space">      </span>&lt;span style="font-size:14px;font-weight:700" id="s-score"&gt;0점&lt;/span&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;div class="progress-bar"&gt;&lt;div class="progress-fill" id="s-pf" style="width:0%"&gt;&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;div style="padding:16px 0"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;div class="label" style="margin-bottom:10px"&gt;영어 표현을 고르세요&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;div style="padding:16px;background:#fff;border-radius:14px;border:1.5px solid #E0DDD6;box-shadow:0 1px 4px rgba(0,0,0,.04)"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">      </span>&lt;div style="font-size:18px;font-weight:600;line-height:1.55;color:#1A1A2E" id="s-kr"&gt;...&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;div id="s-opts"&gt;&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;div class="feedback" id="s-fb"&gt;&lt;/div&gt;</p>
-<p class="p3">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p3">&lt;!-- RESULT --&gt;</p>
-<p class="p2"><br></p>
-<p class="p3">&lt;div id="result-screen" class="screen"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;button class="btn" onclick="goHome()" style="padding:7px 14px;font-size:13px;margin-bottom:20px"&gt;← 홈&lt;/button&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;div style="text-align:center;padding:20px 0"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;div class="stars" id="r-stars"&gt;&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;div class="score-big" id="r-score"&gt;0/0&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;p style="font-size:14px;color:#8A877E;margin-top:8px" id="r-sub"&gt;&lt;/p&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;p style="font-size:15px;font-weight:600;margin-top:20px;color:#1A1A2E" id="r-msg"&gt;&lt;/p&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;div style="display:flex;gap:10px;justify-content:center;margin-top:24px"&gt;</p>
-<p class="p3"><span class="Apple-converted-space">      </span>&lt;button class="btn" onclick="goHome()"&gt;홈으로&lt;/button&gt;</p>
-<p class="p3"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-primary" id="r-replay"&gt;다시 하기&lt;/button&gt;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p3">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p3">&lt;script&gt;</p>
-<p class="p3">const VOCAB=[</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:1,en:"bluffs",kr:"절벽",ch:1},{id:2,en:"batter",kr:"낡고 여기저기 찌그러진",ch:1},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:3,en:"dumb",kr:"멍청한, 바보 같은",ch:1},{id:4,en:"squint",kr:"눈을 가늘게 뜨다",ch:1},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:5,en:"scorcher",kr:"매우 더운 날",ch:1},{id:6,en:"cinch",kr:"아주 쉬운 일",ch:1},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:7,en:"solemnly",kr:"엄숙하게",ch:1},{id:8,en:"jaunt",kr:"짧은 여행",ch:1},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:9,en:"outrageous",kr:"터무니 없는",ch:1},{id:10,en:"plea",kr:"간청, 부탁",ch:1},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:11,en:"drooling",kr:"침을 흘리다",ch:1},{id:12,en:"lick",kr:"핥다",ch:1},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:13,en:"betray",kr:"배신하다",ch:2},{id:14,en:"sizzle",kr:"이글거리다, 지글지글 끓다",ch:2},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:15,en:"ditch",kr:"도랑, 배수로",ch:2},{id:16,en:"wobble",kr:"흔들리다, 비틀거리다",ch:2},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:17,en:"momentum",kr:"추진력, 가속도",ch:2},{id:18,en:"taunt",kr:"놀림, 조롱",ch:2},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:19,en:"nuts",kr:"미친, 제정신이 아닌",ch:2},{id:20,en:"topple",kr:"넘어지다, 떨어지다",ch:2},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:21,en:"encounter",kr:"마주치다, 맞닥뜨리다",ch:2},{id:22,en:"exuberance",kr:"넘치는 활기, 열정",ch:2},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:23,en:"enthusiastically",kr:"열정적으로, 열심히",ch:2},{id:24,en:"haphazardly",kr:"아무렇게나, 되는대로",ch:2},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:25,en:"grumpy",kr:"퉁명스러운",ch:3},{id:26,en:"gooseflesh",kr:"소름, 닭살",ch:3},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:27,en:"grasp",kr:"움켜쥐다",ch:3},{id:28,en:"make fun of",kr:"놀리다, 비웃다",ch:3},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:29,en:"decay",kr:"썩다, 부패하다",ch:3},{id:30,en:"murky",kr:"탁한",ch:3},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:31,en:"current",kr:"물살",ch:3},{id:32,en:"swamp",kr:"늪지, 늪",ch:3},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:33,en:"disloyal",kr:"배신하는",ch:3},{id:34,en:"agitate",kr:"동요되다",ch:4},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:35,en:"resume",kr:"다시 시작하다",ch:4},{id:36,en:"nothingness",kr:"공허함",ch:4},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:37,en:"indistinct",kr:"희미한",ch:4},{id:38,en:"unglued",kr:"이성을 잃은",ch:4},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:39,en:"keep tabs on",kr:"~을 파악하다, 추적하다",ch:4},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:40,en:"tread water",kr:"발을 구르며 물에 떠 있다",ch:5},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:41,en:"thrash",kr:"버둥거리다",ch:5},{id:42,en:"convulse",kr:"경련을 일으키다",ch:5},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:43,en:"lurking",kr:"숨어있는",ch:5},{id:44,en:"pounce",kr:"덮치다",ch:5},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:45,en:"erratic",kr:"불규칙적인",ch:5},{id:46,en:"burst",kr:"터지다, 불쑥 나타나다",ch:5},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:47,en:"rumble",kr:"우르렁거리다",ch:5},{id:48,en:"swerve",kr:"방향을 바꾸다",ch:6},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:49,en:"halt",kr:"멈추다",ch:6},{id:50,en:"stumble",kr:"비틀거리다",ch:6},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:51,en:"cradle",kr:"소중히 안다, 감싸다",ch:6},{id:52,en:"forlorn",kr:"허망한",ch:6},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:53,en:"rigid",kr:"굳은, 뻣뻣한",ch:6},{id:54,en:"reverberate",kr:"울려퍼지다",ch:6},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:55,en:"stifle",kr:"억누르다, 숨이 막히다",ch:6},{id:56,en:"sob",kr:"흐느끼다",ch:6},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:57,en:"nonchalance",kr:"태연함",ch:7},{id:58,en:"dense",kr:"빽빽한",ch:7},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:59,en:"obscure",kr:"불분명한, 희미한",ch:7},{id:60,en:"suction",kr:"흡입력",ch:7},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:61,en:"eagerness",kr:"열의, 열망",ch:8},{id:62,en:"go limp",kr:"힘이 빠지다",ch:8},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:63,en:"frazzle",kr:"지치고 초췌한",ch:8},{id:64,en:"fragrance",kr:"향기",ch:8},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:65,en:"stink",kr:"악취",ch:8},{id:66,en:"fury",kr:"격분, 분노",ch:9},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:67,en:"dispel",kr:"떨쳐버리다",ch:9},{id:68,en:"ridiculous",kr:"말도 안 되는",ch:9},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:69,en:"solemn",kr:"엄숙한, 근엄한",ch:9},{id:70,en:"fretting",kr:"초조해하는",ch:9},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:71,en:"consented",kr:"동의했다",ch:9},{id:72,en:"reverently",kr:"경건하게, 소중히",ch:9},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:73,en:"clammy",kr:"축축한, 기분 나쁜 끈적임",ch:10},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:74,en:"reassure",kr:"안심시키다",ch:10},{id:75,en:"murmur",kr:"속삭임, 소곤거림",ch:10},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:76,en:"suffocating",kr:"숨이 막히는",ch:10},{id:77,en:"dandelion",kr:"민들레",ch:10},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:78,en:"gingerly",kr:"조심조심, 신중하게",ch:10},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:79,en:"inflection",kr:"억양",ch:11},{id:80,en:"loomed",kr:"어렴풋이 나타나다",ch:11},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:81,en:"teetering",kr:"비틀거리는, 불안하게 서 있는",ch:11},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:82,en:"accusation",kr:"비난, 고발",ch:12},{id:83,en:"pummel",kr:"주먹으로 연달아 치다",ch:12},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:84,en:"quivering",kr:"떨리는",ch:12},{id:85,en:"tentatively",kr:"조심스럽게, 망설이며",ch:12},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:86,en:"awkward",kr:"어색한",ch:12},{id:87,en:"tinglingly",kr:"따끔거릴 정도로, 선명하게",ch:12}</p>
-<p class="p3">];</p>
-<p class="p3">const SENTENCES=[</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:"s1",kr:"죽는 것 빼고는 모든 게 고통스럽다",en:"everything hurts, except maybe being dead"},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:"s2",kr:"이제 그만 일어나서 가자",en:"We've gotta get this show on the road."},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:"s3",kr:"모든 것이 이해가 되었다",en:"It all made sense."},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:"s4",kr:"분노를 망토처럼 두르며",en:"pulling the anger around himself like a cloak"},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:"s5",kr:"도망치는 것은 아무것도 변화시키지 못했다",en:"running away hadn't changed a thing"},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:"s6",kr:"그는 강인하고 자신만만한 척 하려 했다",en:"He tried to sound tough, sure of himself."},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:"s7",kr:"~의 손아귀에 잡히다",en:"caught in the grip of"},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:"s8",kr:"똑같이 따라하다",en:"follow suit"},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:"s9",kr:"질투를 느끼지 않을 수 없었다",en:"couldn't help but feel jealous"},</p>
-<p class="p3"><span class="Apple-converted-space">  </span>{id:"s10",kr:"그를 보호 못하는 이 남자가 무슨 소용인가",en:"what good was this man who couldn't protect him"}</p>
-<p class="p3">];</p>
-<p class="p2"><br></p>
-<p class="p3">const st={cf:"all",mode:null,cards:[],ci:0,known:0,qs:[],qi:0,score:0,ans:false};</p>
-<p class="p3">function sfl(a){const b=[...a];for(let i=b.length-1;i&gt;0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}</p>
-<p class="p3">function getV(){return st.cf==="all"?VOCAB:VOCAB.filter(v=&gt;v.ch===+st.cf)}</p>
-<p class="p3">function show(id){document.querySelectorAll(".screen").forEach(s=&gt;s.classList.remove("active"));document.getElementById(id).classList.add("active")}</p>
-<p class="p2"><br></p>
-<p class="p3">function initPills(){</p>
-<p class="p3"><span class="Apple-converted-space">  </span>const chs=["all","1","2","3","4","5","6","7","8","9","10","11","12"];</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("ch-pills").innerHTML=chs.map(c=&gt;`&lt;button class="ch-pill${st.cf===c?" active":""}" onclick="setCh('${c}')"&gt;${c==="all"?"전체":"Ch."+c}&lt;/button&gt;`).join("");</p>
-<p class="p3">}</p>
-<p class="p3">function setCh(c){</p>
-<p class="p3"><span class="Apple-converted-space">  </span>st.cf=c;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("vocab-count").textContent=`단어 ${getV().length}개 · 문장 ${SENTENCES.length}개`;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>initPills();</p>
-<p class="p3">}</p>
-<p class="p3">function goHome(){show("home-screen")}</p>
-<p class="p2"><br></p>
-<p class="p3">function startFlashcard(){</p>
-<p class="p3"><span class="Apple-converted-space">  </span>st.mode="flashcard";st.cards=sfl(getV());st.ci=0;st.known=0;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>show("flashcard-screen");renderFC();</p>
-<p class="p3">}</p>
-<p class="p3">function renderFC(){</p>
-<p class="p3"><span class="Apple-converted-space">  </span>const t=st.cards.length,i=st.ci;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>if(i&gt;=t){showResult(st.known,t);return}</p>
-<p class="p3"><span class="Apple-converted-space">  </span>const c=st.cards[i];</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("fc-pf").style.width=`${(i/t)*100}%`;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("fc-counter").textContent=`${i+1} / ${t}`;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("fc-fen").textContent=c.en;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("fc-fch").textContent=`Ch.${c.ch}`;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("fc-bkr").textContent=c.kr;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("fc-ben").textContent=c.en;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("fc-inner").classList.remove("flipped");</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("fc-actions").style.visibility="hidden";</p>
-<p class="p3">}</p>
-<p class="p3">function flipCard(){</p>
-<p class="p3"><span class="Apple-converted-space">  </span>const el=document.getElementById("fc-inner");</p>
-<p class="p3"><span class="Apple-converted-space">  </span>el.classList.toggle("flipped");</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("fc-actions").style.visibility=el.classList.contains("flipped")?"visible":"hidden";</p>
-<p class="p3">}</p>
-<p class="p3">function fcAnswer(ok){if(ok)st.known++;st.ci++;renderFC()}</p>
-<p class="p2"><br></p>
-<p class="p3">function startQuiz(){</p>
-<p class="p3"><span class="Apple-converted-space">  </span>st.mode="quiz";</p>
-<p class="p3"><span class="Apple-converted-space">  </span>const v=sfl(getV());</p>
-<p class="p3"><span class="Apple-converted-space">  </span>const pool=v.slice(0,Math.min(15,v.length));</p>
-<p class="p3"><span class="Apple-converted-space">  </span>st.qs=pool.map(item=&gt;{</p>
-<p class="p3"><span class="Apple-converted-space">    </span>const wrong=sfl(v.filter(x=&gt;x.id!==item.id)).slice(0,3);</p>
-<p class="p3"><span class="Apple-converted-space">    </span>return{item,opts:sfl([...wrong,item]),corr:item.id};</p>
-<p class="p3"><span class="Apple-converted-space">  </span>});</p>
-<p class="p3"><span class="Apple-converted-space">  </span>st.qi=0;st.score=0;st.ans=false;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>show("quiz-screen");renderQ();</p>
-<p class="p3">}</p>
-<p class="p3">function renderQ(){</p>
-<p class="p3"><span class="Apple-converted-space">  </span>const t=st.qs.length,i=st.qi;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>if(i&gt;=t){showResult(st.score,t);return}</p>
-<p class="p3"><span class="Apple-converted-space">  </span>const q=st.qs[i];</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("q-pf").style.width=`${(i/t)*100}%`;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("q-ctr").textContent=`${i+1} / ${t}`;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("q-score").textContent=`${st.score}점`;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("q-word").textContent=q.item.en;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("q-ch").textContent=`Ch.${q.item.ch}`;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>const el=document.getElementById("q-opts");</p>
-<p class="p3"><span class="Apple-converted-space">  </span>el.innerHTML="";</p>
-<p class="p3"><span class="Apple-converted-space">  </span>q.opts.forEach(o=&gt;{</p>
-<p class="p3"><span class="Apple-converted-space">    </span>const b=document.createElement("button");</p>
-<p class="p3"><span class="Apple-converted-space">    </span>b.className="quiz-option";b.textContent=o.kr;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>b.onclick=()=&gt;pick("q",o.id,b,q);</p>
-<p class="p3"><span class="Apple-converted-space">    </span>el.appendChild(b);</p>
-<p class="p3"><span class="Apple-converted-space">  </span>});</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("q-fb").textContent="";</p>
-<p class="p3"><span class="Apple-converted-space">  </span>st.ans=false;</p>
-<p class="p3">}</p>
-<p class="p2"><br></p>
-<p class="p3">function startSentence(){</p>
-<p class="p3"><span class="Apple-converted-space">  </span>st.mode="sentence";</p>
-<p class="p3"><span class="Apple-converted-space">  </span>const pool=sfl(SENTENCES);</p>
-<p class="p3"><span class="Apple-converted-space">  </span>st.qs=pool.map(item=&gt;{</p>
-<p class="p3"><span class="Apple-converted-space">    </span>const wrong=sfl(SENTENCES.filter(s=&gt;s.id!==item.id)).slice(0,3);</p>
-<p class="p3"><span class="Apple-converted-space">    </span>return{item,opts:sfl([...wrong,item]),corr:item.id};</p>
-<p class="p3"><span class="Apple-converted-space">  </span>});</p>
-<p class="p3"><span class="Apple-converted-space">  </span>st.qi=0;st.score=0;st.ans=false;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>show("sentence-screen");renderS();</p>
-<p class="p3">}</p>
-<p class="p3">function renderS(){</p>
-<p class="p3"><span class="Apple-converted-space">  </span>const t=st.qs.length,i=st.qi;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>if(i&gt;=t){showResult(st.score,t);return}</p>
-<p class="p3"><span class="Apple-converted-space">  </span>const q=st.qs[i];</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("s-pf").style.width=`${(i/t)*100}%`;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("s-ctr").textContent=`${i+1} / ${t}`;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("s-score").textContent=`${st.score}점`;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("s-kr").textContent=q.item.kr;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>const el=document.getElementById("s-opts");</p>
-<p class="p3"><span class="Apple-converted-space">  </span>el.innerHTML="";</p>
-<p class="p3"><span class="Apple-converted-space">  </span>q.opts.forEach(o=&gt;{</p>
-<p class="p3"><span class="Apple-converted-space">    </span>const b=document.createElement("button");</p>
-<p class="p3"><span class="Apple-converted-space">    </span>b.className="quiz-option";b.textContent=o.en;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>b.onclick=()=&gt;pick("s",o.id,b,q);</p>
-<p class="p3"><span class="Apple-converted-space">    </span>el.appendChild(b);</p>
-<p class="p3"><span class="Apple-converted-space">  </span>});</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("s-fb").textContent="";</p>
-<p class="p3"><span class="Apple-converted-space">  </span>st.ans=false;</p>
-<p class="p3">}</p>
-<p class="p2"><br></p>
-<p class="p3">function pick(pfx,selId,btn,q){</p>
-<p class="p3"><span class="Apple-converted-space">  </span>if(st.ans)return;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>st.ans=true;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>const isQ=pfx==="q";</p>
-<p class="p3"><span class="Apple-converted-space">  </span>const allBtns=document.querySelectorAll(`#${pfx}-opts .quiz-option`);</p>
-<p class="p3"><span class="Apple-converted-space">  </span>allBtns.forEach(b=&gt;{</p>
-<p class="p3"><span class="Apple-converted-space">    </span>b.disabled=true;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>const txt=b.textContent;</p>
-<p class="p3"><span class="Apple-converted-space">    </span>const match=q.opts.find(o=&gt;(isQ?o.kr:o.en)===txt);</p>
-<p class="p3"><span class="Apple-converted-space">    </span>if(match&amp;&amp;match.id===q.corr)b.classList.add("correct");</p>
-<p class="p3"><span class="Apple-converted-space">    </span>else if(b===btn&amp;&amp;match&amp;&amp;match.id!==q.corr)b.classList.add("wrong");</p>
-<p class="p3"><span class="Apple-converted-space">  </span>});</p>
-<p class="p3"><span class="Apple-converted-space">  </span>const ok=selId===q.corr;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>if(ok)st.score++;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>const fb=document.getElementById(`${pfx}-fb`);</p>
-<p class="p3"><span class="Apple-converted-space">  </span>fb.textContent=ok?"정답 ✓":"오답 ✗";</p>
-<p class="p3"><span class="Apple-converted-space">  </span>fb.style.color=ok?"#1B7A4A":"#C0392B";</p>
-<p class="p3"><span class="Apple-converted-space">  </span>setTimeout(()=&gt;{st.qi++;isQ?renderQ():renderS()},1100);</p>
-<p class="p3">}</p>
-<p class="p2"><br></p>
-<p class="p3">function showResult(s,t){</p>
-<p class="p3"><span class="Apple-converted-space">  </span>show("result-screen");</p>
-<p class="p3"><span class="Apple-converted-space">  </span>const p=t&gt;0?s/t:0;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>const stars=p&gt;=.8?"★★★":p&gt;=.6?"★★☆":p&gt;=.4?"★☆☆":"☆☆☆";</p>
-<p class="p3"><span class="Apple-converted-space">  </span>const msg=p&gt;=.8?"훌륭해요! 완벽에 가깝네요 🎉":p&gt;=.6?"잘했어요! 조금만 더 연습해봐요 💪":p&gt;=.4?"괜찮아요, 다시 도전해봐요!":"포기하지 말고 다시 해봐요 📖";</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("r-stars").textContent=st.mode==="flashcard"?"":stars;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("r-score").textContent=`${s} / ${t}`;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("r-sub").textContent=st.mode==="flashcard"?"알고 있는 단어":"정답";</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("r-msg").textContent=msg;</p>
-<p class="p3"><span class="Apple-converted-space">  </span>document.getElementById("r-replay").onclick=()=&gt;{</p>
-<p class="p3"><span class="Apple-converted-space">    </span>if(st.mode==="flashcard")startFlashcard();</p>
-<p class="p3"><span class="Apple-converted-space">    </span>else if(st.mode==="quiz")startQuiz();</p>
-<p class="p3"><span class="Apple-converted-space">    </span>else startSentence();</p>
-<p class="p3"><span class="Apple-converted-space">  </span>};</p>
-<p class="p3">}</p>
-<p class="p3">initPills();</p>
-<p class="p3">&lt;/script&gt;</p>
-<p class="p2"><br></p>
-<p class="p3">&lt;/body&gt;</p>
-<p class="p3">&lt;/html&gt;</p>
+<div id="home-screen" class="screen active">
+  <div style="margin-bottom:24px;padding-top:8px">
+    <div style="font-size:22px;font-weight:700;margin-bottom:4px">📖 English Study</div>
+    <div style="font-size:13px;color:#8A877E" id="vocab-count">단어 87개 · 문장 10개</div>
+  </div>
+  <div style="margin-bottom:20px">
+    <div class="label" style="margin-bottom:10px">챕터 선택</div>
+    <div style="display:flex;flex-wrap:wrap;gap:7px" id="ch-pills"></div>
+  </div>
+  <button class="mode-card" onclick="startFlashcard()">
+    <div class="mode-icon" style="background:#EEF4FF">🃏</div>
+    <div>
+      <div style="font-size:15px;font-weight:600">플래시카드</div>
+      <div style="font-size:12px;color:#8A877E;margin-top:2px">카드를 뒤집어 뜻 확인</div>
+    </div>
+  </button>
+  <button class="mode-card" onclick="startQuiz()">
+    <div class="mode-icon" style="background:#EEFAF4">🧠</div>
+    <div>
+      <div style="font-size:15px;font-weight:600">단어 퀴즈</div>
+      <div style="font-size:12px;color:#8A877E;margin-top:2px">영어 단어 → 한국어 뜻 고르기</div>
+    </div>
+  </button>
+  <button class="mode-card" onclick="startSentence()">
+    <div class="mode-icon" style="background:#FFF8EE">✍️</div>
+    <div>
+      <div style="font-size:15px;font-weight:600">문장 도전</div>
+      <div style="font-size:12px;color:#8A877E;margin-top:2px">한국어 → 영어 표현 고르기</div>
+    </div>
+  </button>
+</div>
+
+<div id="flashcard-screen" class="screen">
+  <div class="row-between">
+    <button class="btn" onclick="goHome()" style="padding:7px 14px;font-size:13px">← 홈</button>
+    <span style="font-size:13px;color:#8A877E" id="fc-counter">1 / 87</span>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="fc-pf" style="width:0%"></div></div>
+  <div class="flip-wrap" onclick="flipCard()">
+    <div class="flip-inner" id="fc-inner">
+      <div class="flip-face">
+        <span class="ch-badge" id="fc-fch">Ch.1</span>
+        <div class="word-big" id="fc-fen">word</div>
+        <span style="font-size:12px;color:#B0ADA6">탭하여 뒤집기</span>
+      </div>
+      <div class="flip-face back">
+        <span class="label">한국어</span>
+        <div class="word-kr" id="fc-bkr">뜻</div>
+        <span style="font-size:13px;color:#8A877E" id="fc-ben">word</span>
+      </div>
+    </div>
+  </div>
+  <div id="fc-actions" style="visibility:hidden;display:flex;gap:10px">
+    <button class="btn btn-no" style="flex:1" onclick="fcAnswer(false)">😅 모르겠어요</button>
+    <button class="btn btn-ok" style="flex:1" onclick="fcAnswer(true)">✅ 알아요!</button>
+  </div>
+</div>
+
+<div id="quiz-screen" class="screen">
+  <div class="row-between">
+    <button class="btn" onclick="goHome()" style="padding:7px 14px;font-size:13px">← 홈</button>
+    <div style="display:flex;gap:12px;align-items:center">
+      <span style="font-size:13px;color:#8A877E" id="q-ctr">1 / 15</span>
+      <span style="font-size:14px;font-weight:700" id="q-score">0점</span>
+    </div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="q-pf" style="width:0%"></div></div>
+  <div style="text-align:center;padding:20px 0 16px">
+    <span class="ch-badge" id="q-ch">Ch.1</span>
+    <div class="word-big" style="margin-top:10px" id="q-word">word</div>
+    <p style="font-size:12px;color:#8A877E;margin-top:8px">한국어 뜻을 고르세요</p>
+  </div>
+  <div id="q-opts"></div>
+  <div class="feedback" id="q-fb"></div>
+</div>
+
+<div id="sentence-screen" class="screen">
+  <div class="row-between">
+    <button class="btn" onclick="goHome()" style="padding:7px 14px;font-size:13px">← 홈</button>
+    <div style="display:flex;gap:12px;align-items:center">
+      <span style="font-size:13px;color:#8A877E" id="s-ctr">1 / 10</span>
+      <span style="font-size:14px;font-weight:700" id="s-score">0점</span>
+    </div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="s-pf" style="width:0%"></div></div>
+  <div style="padding:16px 0">
+    <div class="label" style="margin-bottom:10px">영어 표현을 고르세요</div>
+    <div style="padding:16px;background:#fff;border-radius:14px;border:1.5px solid #E0DDD6;box-shadow:0 1px 4px rgba(0,0,0,.04)">
+      <div style="font-size:18px;font-weight:600;line-height:1.55;color:#1A1A2E" id="s-kr">...</div>
+    </div>
+  </div>
+  <div id="s-opts"></div>
+  <div class="feedback" id="s-fb"></div>
+</div>
+
+<div id="result-screen" class="screen">
+  <button class="btn" onclick="goHome()" style="padding:7px 14px;font-size:13px;margin-bottom:20px">← 홈</button>
+  <div style="text-align:center;padding:20px 0">
+    <div class="stars" id="r-stars"></div>
+    <div class="score-big" id="r-score">0/0</div>
+    <p style="font-size:14px;color:#8A877E;margin-top:8px" id="r-sub"></p>
+    <p style="font-size:15px;font-weight:600;margin-top:20px;color:#1A1A2E" id="r-msg"></p>
+    <div style="display:flex;gap:10px;justify-content:center;margin-top:24px">
+      <button class="btn" onclick="goHome()">홈으로</button>
+      <button class="btn btn-primary" id="r-replay">다시 하기</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const VOCAB=[
+  {id:1,en:"bluffs",kr:"절벽",ch:1},{id:2,en:"batter",kr:"낡고 여기저기 찌그러진",ch:1},
+  {id:3,en:"dumb",kr:"멍청한, 바보 같은",ch:1},{id:4,en:"squint",kr:"눈을 가늘게 뜨다",ch:1},
+  {id:5,en:"scorcher",kr:"매우 더운 날",ch:1},{id:6,en:"cinch",kr:"아주 쉬운 일",ch:1},
+  {id:7,en:"solemnly",kr:"엄숙하게",ch:1},{id:8,en:"jaunt",kr:"짧은 여행",ch:1},
+  {id:9,en:"outrageous",kr:"터무니 없는",ch:1},{id:10,en:"plea",kr:"간청, 부탁",ch:1},
+  {id:11,en:"drooling",kr:"침을 흘리다",ch:1},{id:12,en:"lick",kr:"핥다",ch:1},
+  {id:13,en:"betray",kr:"배신하다",ch:2},{id:14,en:"sizzle",kr:"이글거리다, 지글지글 끓다",ch:2},
+  {id:15,en:"ditch",kr:"도랑, 배수로",ch:2},{id:16,en:"wobble",kr:"흔들리다, 비틀거리다",ch:2},
+  {id:17,en:"momentum",kr:"추진력, 가속도",ch:2},{id:18,en:"taunt",kr:"놀림, 조롱",ch:2},
+  {id:19,en:"nuts",kr:"미친, 제정신이 아닌",ch:2},{id:20,en:"topple",kr:"넘어지다, 떨어지다",ch:2},
+  {id:21,en:"encounter",kr:"마주치다, 맞닥뜨리다",ch:2},{id:22,en:"exuberance",kr:"넘치는 활기, 열정",ch:2},
+  {id:23,en:"enthusiastically",kr:"열정적으로, 열심히",ch:2},{id:24,en:"haphazardly",kr:"아무렇게나, 되는대로",ch:2},
+  {id:25,en:"grumpy",kr:"퉁명스러운",ch:3},{id:26,en:"gooseflesh",kr:"소름, 닭살",ch:3},
+  {id:27,en:"grasp",kr:"움켜쥐다",ch:3},{id:28,en:"make fun of",kr:"놀리다, 비웃다",ch:3},
+  {id:29,en:"decay",kr:"썩다, 부패하다",ch:3},{id:30,en:"murky",kr:"탁한",ch:3},
+  {id:31,en:"current",kr:"물살",ch:3},{id:32,en:"swamp",kr:"늪지, 늪",ch:3},
+  {id:33,en:"disloyal",kr:"배신하는",ch:3},{id:34,en:"agitate",kr:"동요되다",ch:4},
+  {id:35,en:"resume",kr:"다시 시작하다",ch:4},{id:36,en:"nothingness",kr:"공허함",ch:4},
+  {id:37,en:"indistinct",kr:"희미한",ch:4},{id:38,en:"unglued",kr:"이성을 잃은",ch:4},
+  {id:39,en:"keep tabs on",kr:"~을 파악하다, 추적하다",ch:4},
+  {id:40,en:"tread water",kr:"발을 구르며 물에 떠 있다",ch:5},
+  {id:41,en:"thrash",kr:"버둥거리다",ch:5},{id:42,en:"convulse",kr:"경련을 일으키다",ch:5},
+  {id:43,en:"lurking",kr:"숨어있는",ch:5},{id:44,en:"pounce",kr:"덮치다",ch:5},
+  {id:45,en:"erratic",kr:"불규칙적인",ch:5},{id:46,en:"burst",kr:"터지다, 불쑥 나타나다",ch:5},
+  {id:47,en:"rumble",kr:"우르렁거리다",ch:5},{id:48,en:"swerve",kr:"방향을 바꾸다",ch:6},
+  {id:49,en:"halt",kr:"멈추다",ch:6},{id:50,en:"stumble",kr:"비틀거리다",ch:6},
+  {id:51,en:"cradle",kr:"소중히 안다, 감싸다",ch:6},{id:52,en:"forlorn",kr:"허망한",ch:6},
+  {id:53,en:"rigid",kr:"굳은, 뻣뻣한",ch:6},{id:54,en:"reverberate",kr:"울려퍼지다",ch:6},
+  {id:55,en:"stifle",kr:"억누르다, 숨이 막히다",ch:6},{id:56,en:"sob",kr:"흐느끼다",ch:6},
+  {id:57,en:"nonchalance",kr:"태연함",ch:7},{id:58,en:"dense",kr:"빽빽한",ch:7},
+  {id:59,en:"obscure",kr:"불분명한, 희미한",ch:7},{id:60,en:"suction",kr:"흡입력",ch:7},
+  {id:61,en:"eagerness",kr:"열의, 열망",ch:8},{id:62,en:"go limp",kr:"힘이 빠지다",ch:8},
+  {id:63,en:"frazzle",kr:"지치고 초췌한",ch:8},{id:64,en:"fragrance",kr:"향기",ch:8},
+  {id:65,en:"stink",kr:"악취",ch:8},{id:66,en:"fury",kr:"격분, 분노",ch:9},
+  {id:67,en:"dispel",kr:"떨쳐버리다",ch:9},{id:68,en:"ridiculous",kr:"말도 안 되는",ch:9},
+  {id:69,en:"solemn",kr:"엄숙한, 근엄한",ch:9},{id:70,en:"fretting",kr:"초조해하는",ch:9},
+  {id:71,en:"consented",kr:"동의했다",ch:9},{id:72,en:"reverently",kr:"경건하게, 소중히",ch:9},
+  {id:73,en:"clammy",kr:"축축한, 기분 나쁜 끈적임",ch:10},
+  {id:74,en:"reassure",kr:"안심시키다",ch:10},{id:75,en:"murmur",kr:"속삭임, 소곤거림",ch:10},
+  {id:76,en:"suffocating",kr:"숨이 막히는",ch:10},{id:77,en:"dandelion",kr:"민들레",ch:10},
+  {id:78,en:"gingerly",kr:"조심조심, 신중하게",ch:10},
+  {id:79,en:"inflection",kr:"억양",ch:11},{id:80,en:"loomed",kr:"어렴풋이 나타나다",ch:11},
+  {id:81,en:"teetering",kr:"비틀거리는, 불안하게 서 있는",ch:11},
+  {id:82,en:"accusation",kr:"비난, 고발",ch:12},{id:83,en:"pummel",kr:"주먹으로 연달아 치다",ch:12},
+  {id:84,en:"quivering",kr:"떨리는",ch:12},{id:85,en:"tentatively",kr:"조심스럽게, 망설이며",ch:12},
+  {id:86,en:"awkward",kr:"어색한",ch:12},{id:87,en:"tinglingly",kr:"따끔거릴 정도로, 선명하게",ch:12}
+];
+const SENTENCES=[
+  {id:"s1",kr:"죽는 것 빼고는 모든 게 고통스럽다",en:"everything hurts, except maybe being dead"},
+  {id:"s2",kr:"이제 그만 일어나서 가자",en:"We've gotta get this show on the road."},
+  {id:"s3",kr:"모든 것이 이해가 되었다",en:"It all made sense."},
+  {id:"s4",kr:"분노를 망토처럼 두르며",en:"pulling the anger around himself like a cloak"},
+  {id:"s5",kr:"도망치는 것은 아무것도 변화시키지 못했다",en:"running away hadn't changed a thing"},
+  {id:"s6",kr:"그는 강인하고 자신만만한 척 하려 했다",en:"He tried to sound tough, sure of himself."},
+  {id:"s7",kr:"~의 손아귀에 잡히다",en:"caught in the grip of"},
+  {id:"s8",kr:"똑같이 따라하다",en:"follow suit"},
+  {id:"s9",kr:"질투를 느끼지 않을 수 없었다",en:"couldn't help but feel jealous"},
+  {id:"s10",kr:"그를 보호 못하는 이 남자가 무슨 소용인가",en:"what good was this man who couldn't protect him"}
+];
+const st={cf:"all",mode:null,cards:[],ci:0,known:0,qs:[],qi:0,score:0,ans:false};
+function sfl(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+function getV(){return st.cf==="all"?VOCAB:VOCAB.filter(v=>v.ch===+st.cf)}
+function show(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active")}
+function initPills(){
+  const chs=["all","1","2","3","4","5","6","7","8","9","10","11","12"];
+  document.getElementById("ch-pills").innerHTML=chs.map(c=>`<button class="ch-pill${st.cf===c?" active":""}" onclick="setCh('${c}')">${c==="all"?"전체":"Ch."+c}</button>`).join("");
+}
+function setCh(c){st.cf=c;document.getElementById("vocab-count").textContent=`단어 ${getV().length}개 · 문장 ${SENTENCES.length}개`;initPills()}
+function goHome(){show("home-screen")}
+function startFlashcard(){st.mode="flashcard";st.cards=sfl(getV());st.ci=0;st.known=0;show("flashcard-screen");renderFC()}
+function renderFC(){
+  const t=st.cards.length,i=st.ci;
+  if(i>=t){showResult(st.known,t);return}
+  const c=st.cards[i];
+  document.getElementById("fc-pf").style.width=`${(i/t)*100}%`;
+  document.getElementById("fc-counter").textContent=`${i+1} / ${t}`;
+  document.getElementById("fc-fen").textContent=c.en;
+  document.getElementById("fc-fch").textContent=`Ch.${c.ch}`;
+  document.getElementById("fc-bkr").textContent=c.kr;
+  document.getElementById("fc-ben").textContent=c.en;
+  document.getElementById("fc-inner").classList.remove("flipped");
+  document.getElementById("fc-actions").style.visibility="hidden";
+}
+function flipCard(){const el=document.getElementById("fc-inner");el.classList.toggle("flipped");document.getElementById("fc-actions").style.visibility=el.classList.contains("flipped")?"visible":"hidden"}
+function fcAnswer(ok){if(ok)st.known++;st.ci++;renderFC()}
+function startQuiz(){
+  st.mode="quiz";const v=sfl(getV());const pool=v.slice(0,Math.min(15,v.length));
+  st.qs=pool.map(item=>{const wrong=sfl(v.filter(x=>x.id!==item.id)).slice(0,3);return{item,opts:sfl([...wrong,item]),corr:item.id}});
+  st.qi=0;st.score=0;st.ans=false;show("quiz-screen");renderQ();
+}
+function renderQ(){
+  const t=st.qs.length,i=st.qi;
+  if(i>=t){showResult(st.score,t);return}
+  const q=st.qs[i];
+  document.getElementById("q-pf").style.width=`${(i/t)*100}%`;
+  document.getElementById("q-ctr").textContent=`${i+1} / ${t}`;
+  document.getElementById("q-score").textContent=`${st.score}점`;
+  document.getElementById("q-word").textContent=q.item.en;
+  document.getElementById("q-ch").textContent=`Ch.${q.item.ch}`;
+  const el=document.getElementById("q-opts");el.innerHTML="";
+  q.opts.forEach(o=>{const b=document.createElement("button");b.className="quiz-option";b.textContent=o.kr;b.onclick=()=>pick("q",o.id,b,q);el.appendChild(b)});
+  document.getElementById("q-fb").textContent="";st.ans=false;
+}
+function startSentence(){
+  st.mode="sentence";const pool=sfl(SENTENCES);
+  st.qs=pool.map(item=>{const wrong=sfl(SENTENCES.filter(s=>s.id!==item.id)).slice(0,3);return{item,opts:sfl([...wrong,item]),corr:item.id}});
+  st.qi=0;st.score=0;st.ans=false;show("sentence-screen");renderS();
+}
+function renderS(){
+  const t=st.qs.length,i=st.qi;
+  if(i>=t){showResult(st.score,t);return}
+  const q=st.qs[i];
+  document.getElementById("s-pf").style.width=`${(i/t)*100}%`;
+  document.getElementById("s-ctr").textContent=`${i+1} / ${t}`;
+  document.getElementById("s-score").textContent=`${st.score}점`;
+  document.getElementById("s-kr").textContent=q.item.kr;
+  const el=document.getElementById("s-opts");el.innerHTML="";
+  q.opts.forEach(o=>{const b=document.createElement("button");b.className="quiz-option";b.textContent=o.en;b.onclick=()=>pick("s",o.id,b,q);el.appendChild(b)});
+  document.getElementById("s-fb").textContent="";st.ans=false;
+}
+function pick(pfx,selId,btn,q){
+  if(st.ans)return;st.ans=true;
+  const isQ=pfx==="q";
+  const allBtns=document.querySelectorAll(`#${pfx}-opts .quiz-option`);
+  allBtns.forEach(b=>{
+    b.disabled=true;const txt=b.textContent;
+    const match=q.opts.find(o=>(isQ?o.kr:o.en)===txt);
+    if(match&&match.id===q.corr)b.classList.add("correct");
+    else if(b===btn&&match&&match.id!==q.corr)b.classList.add("wrong");
+  });
+  const ok=selId===q.corr;if(ok)st.score++;
+  const fb=document.getElementById(`${pfx}-fb`);
+  fb.textContent=ok?"정답 ✓":"오답 ✗";
+  fb.style.color=ok?"#1B7A4A":"#C0392B";
+  setTimeout(()=>{st.qi++;isQ?renderQ():renderS()},1100);
+}
+function showResult(s,t){
+  show("result-screen");const p=t>0?s/t:0;
+  const stars=p>=.8?"★★★":p>=.6?"★★☆":p>=.4?"★☆☆":"☆☆☆";
+  const msg=p>=.8?"훌륭해요! 완벽에 가깝네요 🎉":p>=.6?"잘했어요! 조금만 더 연습해봐요 💪":p>=.4?"괜찮아요, 다시 도전해봐요!":"포기하지 말고 다시 해봐요 📖";
+  document.getElementById("r-stars").textContent=st.mode==="flashcard"?"":stars;
+  document.getElementById("r-score").textContent=`${s} / ${t}`;
+  document.getElementById("r-sub").textContent=st.mode==="flashcard"?"알고 있는 단어":"정답";
+  document.getElementById("r-msg").textContent=msg;
+  document.getElementById("r-replay").onclick=()=>{if(st.mode==="flashcard")startFlashcard();else if(st.mode==="quiz")startQuiz();else startSentence()};
+}
+initPills();
+</script>
 </body>
 </html>
